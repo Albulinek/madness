@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/25235e57-fe33-418f-b285-38217a8e0482/deploy-status)](https://app.netlify.com/sites/surrender-to-madness/deploys)
 # Astro + React Example
 
 ```sh
