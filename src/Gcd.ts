@@ -5,11 +5,7 @@ export class Gcd {
   private subscribedEvents: Array<(duration: number) => void> = [];
 
   // Public section
-  constructor(subscribedEvents: Array<(duration: number) => void>) {
-    this.subscribedEvents = subscribedEvents;
-  }
-
-  async onTriggerGcd() {
+  onTriggerGcd = async () => {
     if (this.inProgress) {
       throw "Already on gcd";
     }
@@ -20,12 +16,16 @@ export class Gcd {
     this.setInProgress(false);
   }
 
+  registerListener = (cb: (duration: number) => void) => {
+    this.subscribedEvents.push(cb);
+  }
+
   // Private
-  private setInProgress(val: boolean) {
+  private setInProgress = (val: boolean) => {
     this.inProgress = val;
   }
 
-  private emitGcd() {
+  private emitGcd = () => {
     this.subscribedEvents.forEach(cb => cb(this.BASE_GCD_LENGTH));
   }
 }
