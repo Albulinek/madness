@@ -1,8 +1,11 @@
+// Type
+type LISTENER_CB_TYPE = (duration: number) => void;
+
 export class Gcd {
   private BASE_GCD_LENGTH: number = 1000; // in ms
 
   private inProgress: boolean = false;
-  private subscribedEvents: Array<(duration: number) => void> = [];
+  private subscribedEvents: Array<LISTENER_CB_TYPE> = [];
 
   // Public section
   onTriggerGcd = async () => {
@@ -16,8 +19,8 @@ export class Gcd {
     this.setInProgress(false);
   }
 
-  registerListener = (cb: (duration: number) => void) => {
-    this.subscribedEvents.push(cb);
+  registerListener = (gcdListenerCallback: LISTENER_CB_TYPE) => {
+    this.subscribedEvents.push(gcdListenerCallback);
   }
 
   // Private
@@ -26,6 +29,6 @@ export class Gcd {
   }
 
   private emitGcd = () => {
-    this.subscribedEvents.forEach(cb => cb(this.BASE_GCD_LENGTH));
+    this.subscribedEvents.forEach(gcdListenerCallback => gcdListenerCallback(this.BASE_GCD_LENGTH));
   }
 }

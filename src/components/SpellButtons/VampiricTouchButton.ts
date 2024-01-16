@@ -25,11 +25,11 @@ export class VampiricTouchButton implements ISpellButton {
 
   // Private section
 
-  setOnCd = (val: boolean) => {
+  private setOnCd = (val: boolean) => {
     this.onCd = val;
   };
 
-  doCd = async (duration: number) => {
+  private doCd = async (duration: number) => {
     if (this.onCd) {
       throw "Is on cd error or something"; // TODO finish error handling
     }
@@ -39,7 +39,7 @@ export class VampiricTouchButton implements ISpellButton {
     this.setOnCd(false);
   }
 
-  renderCd = async(duration: number) => {
+  private renderCd = async(duration: number) => {
     // TODO implement animation
     console.log("Imagine the cd is running for: " + duration);
   };
