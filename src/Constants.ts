@@ -1,0 +1,1 @@
+export const VT_BASE_CAST_TIME: number = 1500;
