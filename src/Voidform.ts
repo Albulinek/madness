@@ -1,6 +1,6 @@
-import {VOIDFORM_INSANITY_DRAIN_INCREMENT, VOIDFORM_INSANITY_INIT_DRAIN} from "../Constants.ts";
+import {VOIDFORM_INSANITY_DRAIN_INCREMENT, VOIDFORM_INSANITY_INIT_DRAIN} from "./Constants.ts";
 import TimerEvent = Phaser.Time.TimerEvent;
-import type {GameScene} from "./GameScene.tsx";
+import type {GameScene} from "./components/GameScene.tsx";
 type TimerEventConfig = Phaser.Types.Time.TimerEventConfig;
 
 // Types
@@ -17,6 +17,7 @@ export class Voidform {
   private registerVoidformEvent: PURE_CB = () => null;
   private killVoidformEvent: PURE_CB = () => null;
   private inVoidform: boolean = false;
+  private onStackChange?: (val: number) => void;
 
   // Public
   constructor(decreaseInsanity: INSANITY_SETTER_CB, getCurrentInsanity: () => number, onExit?: PURE_CB) {
@@ -54,7 +55,9 @@ export class Voidform {
     this.registerVoidformEvent();
   }
 
-
+  registerOnStackChangeCallback = (onStackChange: (stackCount: number) => void) => {
+    this.onStackChange = onStackChange;
+}
 
   // Private
   private voidformTick = () => {
@@ -63,12 +66,18 @@ export class Voidform {
     );
 
     if (currentInsanity !== 0) {
-      return this.stacks++;
+      return this.setStacks(this.stacks + 1);
     }
 
     this.inVoidform = false;
-    this.stacks = 0;
+    this.setStacks(0);
     this.killVoidformEvent();
     this.onExit();
+  }
+
+  setStacks = (val: number) => {
+    this.stacks = val;
+    this.onStackChange && this.onStackChange(val);
+    return val;
   }
 }
