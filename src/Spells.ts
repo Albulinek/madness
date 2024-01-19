@@ -1,5 +1,5 @@
 import type {InsanityBar} from "./InsanityBar.ts";
-import type {Voidform} from "./components/Voidform.ts";
+import type {Voidform} from "./Voidform.ts";
 
 export const VampiricTouchSpell = (insanityBar: InsanityBar) => {
   const BASE_INSANITY: number = 10;

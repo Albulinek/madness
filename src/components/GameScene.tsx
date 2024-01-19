@@ -9,8 +9,9 @@ import {SpellEnum} from "../SpellEnum.ts";
 import {VE_BASE_CAST_TIME, VT_BASE_CAST_TIME} from "../Constants.ts";
 import {VampiricTouchSpell, VoidFormSpell} from "../Spells.ts";
 import {CastingBar} from './CastingBar.ts';
-import {Voidform} from "./Voidform.ts";
+import {Voidform} from "../Voidform.ts";
 import {VoidEruptionButton} from "./SpellButtons/VoidEruptionButton.ts";
+import {VoidformAura} from "./VoidformAura.ts";
 
 type StateManager = {
     insanityBar: InsanityBar;
@@ -77,6 +78,9 @@ export class GameScene extends Phaser.Scene {
         const veCallback = () => spellcast.cast(SpellEnum.VoidEruption, VE_BASE_CAST_TIME, () => VoidFormSpell(voidform));
         const voidEruptionButton = new VoidEruptionButton(this, veCallback);
         gcd.registerListener(voidEruptionButton.onTriggerGcd);
+
+        const voidformAura = new VoidformAura(this);
+        voidform.registerOnStackChangeCallback(voidformAura.updateStacks);
 
         new DebugOutput(this.eventSystem);
     }
