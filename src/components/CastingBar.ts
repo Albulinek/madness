@@ -1,5 +1,6 @@
-import Graphic = Phaser.GameObjects.Graphic;
+import Graphic = Phaser.GameObjects.Graphics;
 import Text = Phaser.GameObjects.Text;
+import { GameScene } from "./GameScene";
 
 export class CastingBar {
   private box: Graphic;
@@ -10,13 +11,13 @@ export class CastingBar {
   constructor(scene: GameScene) {
     this.box = scene.add.graphics();
     this.bar = scene.add.graphics();
-    this.text = scene.add.text(100, 300);
+    this.text = scene.add.text(100, 300, '');
   }
 
-  startCasting: (duration: number) => {
+  startCasting = (duration: number) => {
     // Draw the borders
     this.box.lineStyle(2, 0xffff00, 1);
-    this.box.strokeRoundRect(50, 50, 300, 200, 32);
+    this.box.strokeRoundedRect(50, 50, 300, 200, 32);
 
     
   }
