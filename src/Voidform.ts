@@ -51,6 +51,7 @@ export class Voidform {
       return console.log("Not enough insanity!");
     }
 
+    this.setStacks(1);
     this.inVoidform = true;
     this.registerVoidformEvent();
   }
@@ -61,8 +62,9 @@ export class Voidform {
 
   // Private
   private voidformTick = () => {
+    const nonStartingStacks = this.stacks > 1 ? this.stacks - 1 : 0; // Better safe than sorry
     const currentInsanity = this.decreaseInsanity(
-      VOIDFORM_INSANITY_INIT_DRAIN + VOIDFORM_INSANITY_DRAIN_INCREMENT * this.stacks
+      VOIDFORM_INSANITY_INIT_DRAIN + VOIDFORM_INSANITY_DRAIN_INCREMENT * nonStartingStacks
     );
 
     if (currentInsanity !== 0) {
