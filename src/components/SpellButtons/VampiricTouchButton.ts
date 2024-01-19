@@ -1,9 +1,9 @@
 import type {ISpellButton} from "./ISpellButton.ts";
 import {GameScene} from "../GameScene.tsx";
+import {SpellEnum} from "../../SpellEnum.ts";
 
 export class VampiricTouchButton implements ISpellButton {
   private BASE_SPELL_CD_TIME: number = 2000; // TODO this might be extracted when haste is introduced
-  private SPELL_NAME: string = 'Vampiric Touch';
   private onCd: boolean = false;
 
   // Public section
@@ -11,7 +11,7 @@ export class VampiricTouchButton implements ISpellButton {
     const button = scene.add.rectangle(400, 400, 200, 50, 0x0000ff)
       .setInteractive({ useHandCursor: true })
       .on('pointerup', onClick);
-    const buttonText = scene.add.text(400, 400, this.SPELL_NAME, { color: '#0f0' })
+    const buttonText = scene.add.text(400, 400, SpellEnum.VampiricTouch, { color: '#0f0' })
       .setOrigin(0.5, 0.5);
   }
 
