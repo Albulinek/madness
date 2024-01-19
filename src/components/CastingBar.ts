@@ -5,7 +5,6 @@ import Text = Phaser.GameObjects.Text;
 import TimerEvent = Phaser.Time.TimerEvent;
 import { GameScene } from "./GameScene";
 import { CAST_BAR_HEIGHT, CAST_BAR_TOP_X, CAST_BAR_TOP_Y, CAST_BAR_WIDTH } from "../Constants";
-type TimerEventConfig = Phaser.Types.Time.TimerEventConfig;
 
 export class CastingBar {
   private box: Graphic;
@@ -81,4 +80,4 @@ export class CastingBar {
     this.bar.clear();
     this.text.setText('');
   }
-};
+}
