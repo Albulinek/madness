@@ -20,14 +20,14 @@ export class InsanityBar {
     const newInsanity = this.insanity + val;
     this.insanity = newInsanity > 100 ? 100 : newInsanity;
     this.onChange(this.insanity);
-    console.log("Insanity increased to: " + this.insanity);
+    return this.getInsanity();
   }
 
   lower = (val: number) => {
     const newInsanity = this.insanity - val;
     this.insanity = newInsanity < 0 ? 0 : newInsanity;
     this.onChange(this.insanity);
-    console.log("Insanity decreased to: " + this.insanity);
+    return this.getInsanity();
   }
 
   getInsanity = () => {

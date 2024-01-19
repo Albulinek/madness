@@ -6,14 +6,17 @@ import {Gcd} from "../Gcd.ts";
 import {Spellcast} from "../Spellcast.ts";
 import {VampiricTouchButton} from "./SpellButtons/VampiricTouchButton.ts";
 import {SpellEnum} from "../SpellEnum.ts";
-import {VT_BASE_CAST_TIME} from "../Constants.ts";
-import {VampiricTouchSpell} from "../Spells.ts";
-import { CastingBar } from './CastingBar.ts';
+import {VE_BASE_CAST_TIME, VT_BASE_CAST_TIME} from "../Constants.ts";
+import {VampiricTouchSpell, VoidFormSpell} from "../Spells.ts";
+import {CastingBar} from './CastingBar.ts';
+import {Voidform} from "./Voidform.ts";
+import {VoidEruptionButton} from "./SpellButtons/VoidEruptionButton.ts";
 
 type StateManager = {
     insanityBar: InsanityBar;
     gcd: Gcd;
     spellcast: Spellcast;
+    voidform: Voidform;
 };
 
 export class GameScene extends Phaser.Scene {
@@ -31,11 +34,13 @@ export class GameScene extends Phaser.Scene {
         const insanityBar = new InsanityBar();
         const gcd = new Gcd();
         const spellcast = new Spellcast(() => gcd.onTriggerGcd());
+        const voidform = new Voidform(insanityBar.lower, insanityBar.getInsanity, () => console.log('Exited voidform'));
 
         this.state = {
             insanityBar,
             gcd,
-            spellcast
+            spellcast,
+            voidform
         };
     }
 
@@ -54,8 +59,10 @@ export class GameScene extends Phaser.Scene {
         const {
             insanityBar,
             gcd,
-            spellcast
+            spellcast,
+            voidform
         } = this.state;
+        voidform.registerTimeEventCallbacks(this); // TODO maybe move this back to constructor
 
         const insanityBarIndicator = new InsanityBarIndicator(this);
         insanityBar.registerListener(insanityBarIndicator.updateBarIndicator);
@@ -66,6 +73,10 @@ export class GameScene extends Phaser.Scene {
         const vtCallback = () => spellcast.cast(SpellEnum.VampiricTouch, VT_BASE_CAST_TIME, () => VampiricTouchSpell(insanityBar));
         const vampiricTouchButton = new VampiricTouchButton(this, vtCallback);
         gcd.registerListener(vampiricTouchButton.onTriggerGcd);
+
+        const veCallback = () => spellcast.cast(SpellEnum.VoidEruption, VE_BASE_CAST_TIME, () => VoidFormSpell(voidform));
+        const voidEruptionButton = new VoidEruptionButton(this, veCallback);
+        gcd.registerListener(voidEruptionButton.onTriggerGcd);
 
         new DebugOutput(this.eventSystem);
     }
