@@ -10,6 +10,9 @@ const Game: React.FC = () => {
             parent: 'game-container',
             width: 800,
             height: 600,
+            input: {
+                keyboard: true
+            },
             scene: GameScene
         };
 

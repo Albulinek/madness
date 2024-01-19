@@ -21,6 +21,8 @@ export class GameScene extends Phaser.Scene {
     private counter: Counter;
     private state: StateManager;
 
+    public keyOne: Phaser.Input.Keyboard.Key | undefined = undefined;
+
     constructor() {
         super();
         // Event System setup
@@ -41,9 +43,15 @@ export class GameScene extends Phaser.Scene {
 
     preload() {
         // Load any necessary assets here, like button images
+        // TODO: investigate how to load images from the public folder as DI?
+        this.load.image('vt_spell', 'images/spells/vt_spell.jpg');
+        this.load.image('default_borders', 'images/defaults/default_borders.png');
+        this.load.image('default_hilite', 'images/defaults/default_hilite.png');
     }
 
     create() {
+        // Keyboard setup
+        this.keyOne = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
         // Create spell buttons
         const sp1 = new SpellButton('Surrender to Madness', this.eventSystem);
         sp1.draw(this)
