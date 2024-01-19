@@ -8,6 +8,7 @@ import {VampiricTouchButton} from "./SpellButtons/VampiricTouchButton.ts";
 import {SpellEnum} from "../SpellEnum.ts";
 import {VT_BASE_CAST_TIME} from "../Constants.ts";
 import {VampiricTouchSpell} from "../Spells.ts";
+import { CastingBar } from './CastingBar.ts';
 
 type StateManager = {
     insanityBar: InsanityBar;
@@ -59,7 +60,8 @@ export class GameScene extends Phaser.Scene {
         const insanityBarIndicator = new InsanityBarIndicator(this);
         insanityBar.registerListener(insanityBarIndicator.updateBarIndicator);
 
-        // TODO implement cast bar
+        const castBar = new CastingBar(this);
+        spellcast.registerListener(castBar.startCasting);
 
         const vtCallback = () => spellcast.cast(SpellEnum.VampiricTouch, VT_BASE_CAST_TIME, () => VampiricTouchSpell(insanityBar));
         const vampiricTouchButton = new VampiricTouchButton(this, vtCallback);

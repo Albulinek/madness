@@ -1,4 +1,4 @@
 export enum SpellEnum {
-  VampiricTouch,
-  MindBlast
+  VampiricTouch = 'Vampiric Touch',
+  MindBlast = 'Mind Blast',
 };

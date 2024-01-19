@@ -2,12 +2,12 @@ import type {SpellEnum} from "./SpellEnum.ts";
 
 // Type definition
 type GCD_CB_LAMBDA = () => void;
-type ON_CAST_LAMBDA = (spellName: SpellEnum, duration: number) => void;
+type ON_CAST_LAMBDA = (spellName: SpellEnum, duration: number) => Promise<void>;
 //----
 
 export class Spellcast {
   private inProgress: boolean = false;
-  private castBarCb: ON_CAST_LAMBDA = () => console.log("Spellcast cb not defined!");
+  private castBarCb: ON_CAST_LAMBDA = async () => console.log("Spellcast cb not defined!");
   readonly gcdCb: GCD_CB_LAMBDA;
 
   // Public section
@@ -26,10 +26,7 @@ export class Spellcast {
 
     this.setInProgress(true);
     this.gcdCb();
-    console.log("I be doing this")
-    this.castBarCb(spellName, duration);
-    console.log("Casting")
-    await new Promise(resolve => setTimeout(resolve, duration));
+    await this.castBarCb(spellName, duration); // TODO rework async here, instead of await try locking self
     onCast();
     this.setInProgress(false);
   }
