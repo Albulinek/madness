@@ -26,15 +26,17 @@ export class CastingBar {
     this.text = scene.add.text(0, 0, '');
 
     // Fade out setup
-    const fadeOutEventConfig =  { // TODO implement actual fade out
-      delay: 300, 
+    const fadeOutEventConfig = { // TODO implement actual fade out
+      delay: 300,
       callback: this.cleanUpBar
     };
+
     let fadeOutEvent: TimerEvent;
 
     this.registerFadeOutEvent = () => {
       fadeOutEvent = scene.time.addEvent(fadeOutEventConfig);
     };
+
     this.resetFadeOutEvent = () => {
       fadeOutEvent?.remove(true);
     };
@@ -58,7 +60,7 @@ export class CastingBar {
     this.box.lineStyle(2, 0xffffff, 1);
     this.box.strokeRoundedRect(CAST_BAR_TOP_X, CAST_BAR_TOP_Y, CAST_BAR_WIDTH, CAST_BAR_HEIGHT, 32);
   }
-  
+
   private drawCastBar = async (duration: number) => {
     let castingProgress = 0;
 
@@ -72,7 +74,7 @@ export class CastingBar {
       await new Promise(resolve => setTimeout(resolve, 50));
     }
 
-    
+
     this.registerFadeOutEvent();
   }
 
