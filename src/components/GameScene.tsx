@@ -21,7 +21,7 @@ export class GameScene extends Phaser.Scene {
     private counter: Counter;
     private state: StateManager;
 
-    public keyOne: Phaser.Input.Keyboard.Key | undefined = undefined;
+    public keyOne?: Phaser.Input.Keyboard.Key = undefined;
 
     constructor() {
         super();
