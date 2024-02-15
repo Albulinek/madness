@@ -25,9 +25,6 @@ export class VampiricTouchButton implements ISpellButton {
 
   // Public section
   constructor(scene: GameScene, event: () => void) {
-
-    // TODO: rounded rectangle 4px radius
-    // hover highlight 8px radius
     this.button = scene.add.sprite(0, 0, 'vt_spell')
       .setInteractive({ useHandCursor: true })
       .on('pointerup', event);

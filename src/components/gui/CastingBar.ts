@@ -17,10 +17,7 @@ export class CastingBar {
   // mask for gradient
   private blendSprite: Phaser.GameObjects.Sprite;
 
-  private castbarMask: Sprite;
-
   // private spark: Phaser.GameObjects.Sprite;
-  private bitmapMask: Phaser.Display.Masks.BitmapMask;
   private particleEmitter: Phaser.GameObjects.Particles.ParticleEmitter;
 
   private castbarBorder: Sprite;
@@ -40,9 +37,6 @@ export class CastingBar {
     this.castbarBorder = scene.add.sprite(0, 0, 'castbar_border');
     this.castbarBorder.setVisible(false);
 
-    // this.spark = scene.add.sprite(0, 0, 'castbar_spark');
-    // this.spark.setVisible(false);
-
     // Create Particle Manager and Emitter
     this.particleEmitter = scene.add.particles(0, 0, 'castbar_spark',// Ensure this asset is loaded in preload
       {
@@ -55,39 +49,10 @@ export class CastingBar {
         frequency: -1 // Don't emit automatically
       });
 
-    // this.castbarMask = scene.add.sprite(0, 0, 'castbar_mask');
-    // this.castbarMask.setVisible(false);
-    // this.bitmapMask = scene.add.bitmapMask(this.castbarMask);
-    // this.bitmapMask.invertAlpha = true;
     
     this.blendSprite = scene.add.sprite(0, 0, 'castbar_fill_mask');
-    // this.maskSprite.setVisible(false);
     this.blendSprite.setScale((this.castbarBorder.width - 50) / this.blendSprite.width, 16 / this.blendSprite.height);
     this.blendSprite.setBlendMode(2);
-    
-
-
-    
-
-    // Debugging: Draw a rectangle behind the mask
-// let debugGraphics = scene.add.graphics();
-// debugGraphics.fillStyle(0xff0000, 0.5); // Semi-transparent red for visibility
-// debugGraphics.fillRect(0, 0, this.castbarBorder.width, this.castbarBorder.height);
-
-
-
-
-    // this.geometryMask = scene.add.(this.maskSprite);
-
-    // Create a BitmapMask using the mask sprite
-    // this.bitmapMask = scene.add.bitmapMask(this.maskSprite);
-    // this.bitmapMask.invertAlpha = true;
-
-    // Apply the BitmapMask to the bar
-    // this.bar.setMask(this.bitmapMask);
-
-    // this.fillMask = scene.add.sprite(0, 0, 'castbar_fill_mask');
-    // this.fillMask.setVisible(false);
 
 
     this.text = scene.add.text(0, 0, '', { fontFamily: 'Friz Quadrata TT', fontSize: '14px', color: 'white' }).setOrigin(0.5, 0.5);
@@ -97,7 +62,7 @@ export class CastingBar {
 
 
     // Fade out setup
-    const fadeOutEventConfig = { // TODO implement actual fade out
+    const fadeOutEventConfig = {
       delay: 300,
       callback: this.cleanUpBar
     };
@@ -159,7 +124,6 @@ export class CastingBar {
 
   private renderCastProgress = (progress: number) => {
     this.bar.clear();
-    // this.bar.setMask(this.bitmapMask);
     this.bar.fillStyle(0xffd316);
     // in order to stack, original asset is 33px x margin, 26px y margin
     const currentBarWidth = Math.round((this.castbarBorder.width - 60) * progress);
